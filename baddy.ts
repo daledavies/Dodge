@@ -21,6 +21,7 @@ class Baddy {
         this.hero = hero;
         this.minWidth = this.levels[game.score()].minBaddyWidth;
         this.maxWidth = this.levels[game.score()].maxBaddyWidth;
+        // Find a starting position that is not the same as posAvoid.
         while (this.pos < 0) {
             let maxPos = 5 - this.maxWidth;
             let pos = randint(0, maxPos);
@@ -28,6 +29,9 @@ class Baddy {
                 this.pos = pos;
             }
         }
+        // Make the baddy a random width between minWidth and maxWidth,
+        // essentially use multiple sprites. We can move them all together
+        // to appear as a single entity.
         let width = randint(this.minWidth, this.maxWidth);
         for (let i = 0; i < width; i++) {
             let sprite = game.createSprite(i + this.pos, 0)
@@ -48,12 +52,8 @@ class Baddy {
                 if (this.sprites[0].get(LedSpriteProperty.Y) == 4) {
                     this.remove();
                 }
-
                 this.sprites.forEach((e) => {
                     e.move(1);
-                    if (e.isTouching(this.hero)) {
-                        game.gameOver();
-                    }
                 });
             }
         })

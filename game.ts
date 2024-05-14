@@ -31,6 +31,8 @@ class Game {
         this.waveLength = 0;
         this.hero.setDirection(90)
         game.setScore(0);
+        game.setLife(3);
+ 
     }
 
     /**
@@ -55,8 +57,11 @@ class Game {
                         if (game.score() == this.levels.length - 1) {
                             break;
                         }
-                        basic.showString(`LEVEL ${game.score() + 2}`, 100);
+                        // Show LEVEL message and increment score, not using
+                        // game.levelUp() as the message scrolls too slowly.
+                        basic.showString(`LEVEL ${game.score() + 2}`, 50);
                         game.addScore(1);
+                        game.addLife(1);
                         this.hero = game.createSprite(randint(1, 3), 4);
                         this.hero.setDirection(90);
                         this.waveLength = 0;
@@ -73,8 +78,22 @@ class Game {
                     basic.pause(this.levels[game.score()].newBaddySpeed);
                 }
             }
-            basic.showString("WINNER", 100);
-        })
+            basic.showString("WINNER!!!!!", 50);
+        });
+        control.inBackground(() => {
+            while (true) {
+                this.baddies.forEach((baddy) => {
+                    baddy.sprites.forEach((e) => {
+                        if (e.isTouching(this.hero)) {
+                            e.delete();
+                            game.removeLife(1);
+                        }
+                    });
+                })
+                // Pause to give control back to other threads
+                basic.pause(20);
+            };
+        });
     }
 
     /**

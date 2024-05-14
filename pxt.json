@@ -1,5 +1,6 @@
 {
     "name": "Dodge",
+    "version": "0.0.1",
     "description": "Try to make your here avoid all the baddies, nobody knows why.",
     "dependencies": {
         "core": "*",

@@ -32,7 +32,6 @@ class Game {
         this.hero.setDirection(90)
         game.setScore(0);
         game.setLife(3);
- 
     }
 
     /**
@@ -64,7 +63,7 @@ class Game {
                         }
                         // Show LEVEL message and increment score, not using
                         // game.levelUp() as the message scrolls too slowly.
-                        basic.showString(`LEVEL ${game.score() + 2}`, 50);
+                        basic.showString(`LEVEL ${game.score() + 2}`, 45);
                         game.addScore(1);
                         game.addLife(1);
                         this.hero = game.createSprite(randint(1, 3), 4);
@@ -90,7 +89,7 @@ class Game {
             }
             // If we get here then our hero has won the game!
             if (game.score() == this.levels.length - 1){
-                basic.showString("WINNER!!!!!", 50);
+                basic.showString("WINNER!", 130);
             }
         });
         // Keep a loop going to watch for any baddies that come into
@@ -100,7 +99,7 @@ class Game {
                 this.baddies.forEach((baddy) => {
                     baddy.sprites.forEach((e) => {
                         if (e.isTouching(this.hero)) {
-                            e.delete();
+                            baddy.remove();
                             game.removeLife(1);
                         }
                     });

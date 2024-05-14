@@ -41,6 +41,9 @@ class Game {
     init(): void {
         control.inBackground(() => {
             while (true) {
+                // Either we are at the end of the level, so we set everything up for the
+                // next one, i.e. there should be no more baddies created.
+                // Or we just keep on creating baddies in this wave until we reach waveLength.
                 if (this.waveLength == this.levels[game.score()].waveLength) {
                     // No more baddies are being created so let's wait for all
                     // the existing one's to get deleted before ending the level. 
@@ -54,6 +57,8 @@ class Game {
                     if (!this.baddies.length) {
                         basic.pause(350);
                         this.hero.delete();
+                        // Are we at the final level already? If so stop looping
+                        // so we can show the winner message.
                         if (game.score() == this.levels.length - 1) {
                             break;
                         }
@@ -67,7 +72,10 @@ class Game {
                         this.waveLength = 0;
                     }
                 } else {
+                    // Create another baddy, make it move and add it to the baddies[] array.
                     let posAvoid = null;
+                    // If we have a previous baddy then find it's position so we can avoid
+                    // creating a new one in the same space.
                     if (this.baddies.length) {
                         posAvoid = this.baddies[this.baddies.length - 1].pos;
                     }
@@ -75,11 +83,16 @@ class Game {
                     this.baddies.push(baddy);
                     baddy.move();
                     this.waveLength++;
+                    // Pause here and wait until it is time to see if we can create
+                    // another baddy.
                     basic.pause(this.levels[game.score()].newBaddySpeed);
                 }
             }
+            // If we get here then our here has won the game!
             basic.showString("WINNER!!!!!", 50);
         });
+        // Keep a loop going to watch for any baddies that come into
+        // contact with our here.
         control.inBackground(() => {
             while (true) {
                 this.baddies.forEach((baddy) => {

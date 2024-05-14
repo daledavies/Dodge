@@ -47,11 +47,15 @@ class Baddy {
     move(): void {
         control.inBackground(() => {
             while (!this.isDeleted()) {
+                // Find the correct level and pause for the correct period
+                // before attempting to move.
                 let level = this.levels[game.score()];
-                basic.pause(randint(level.maxBaddySpeed, level.minBaddySpeed))
+                basic.pause(randint(level.maxBaddySpeed, level.minBaddySpeed));
+                // Remove any baddies that reach the end of the screen.
                 if (this.sprites[0].get(LedSpriteProperty.Y) == 4) {
                     this.remove();
                 }
+                // Move each of the baddies sprites.
                 this.sprites.forEach((e) => {
                     e.move(1);
                 });

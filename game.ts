@@ -1,9 +1,15 @@
+/**
+ * Represents the core logic of the game.
+ */
 class Game {
     readonly levels: Level[];
     waveLength: number = 0;
     baddies: Baddy[] = [];
     hero: game.LedSprite = game.createSprite(randint(1, 3), 4);
 
+    /**
+     * Creates a new Game instance and initialises the level data.
+     */
     constructor() {
         this.levels = [
             new Level(2, 2, 11, 7, 14, 15),
@@ -14,7 +20,10 @@ class Game {
         this.controls();
     }
 
-    setup() {
+    /**
+     * Remove an existing Baddies and set starting game state.
+     */
+    setup(): void {
         this.baddies.forEach((e) => {
             e.remove();
         })
@@ -24,7 +33,10 @@ class Game {
         game.setScore(0);
     }
 
-    init() {
+    /**
+     * Starts the main game loop that manages baddie spawning, level transitions, and win/lose conditions.
+     */
+    init(): void {
         control.inBackground(() => {
             while (true) {
                 if (this.waveLength == this.levels[game.score()].waveLength) {
@@ -65,7 +77,10 @@ class Game {
         })
     }
 
-    controls() {
+    /**
+     * Defines the button controls for the game (move hero left/right and reset).
+     */
+    controls(): void {
         input.onButtonPressed(Button.A, function () {
             this.hero.move(-1);
         })

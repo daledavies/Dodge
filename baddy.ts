@@ -1,3 +1,6 @@
+/**
+ * Represents a baddie (enemy) character in the game.
+ */
 class Baddy {
     minWidth: number;
     maxWidth: number;
@@ -7,6 +10,12 @@ class Baddy {
     levels: Level[];
     hero: game.LedSprite;
 
+    /**
+     * Creates a new Baddy instance.
+     * @param posAvoid An optional position to avoid during placement.
+     * @param levels An array of Level objects representing the game levels.
+     * @param hero A reference to the hero's LedSprite object.
+     */
     constructor(posAvoid: number | null, levels: Level[], hero: game.LedSprite) {
         this.levels = levels;
         this.hero = hero;
@@ -28,7 +37,10 @@ class Baddy {
         }
     }
 
-    move() {
+    /**
+     * Starts the baddie's movement loop in the background.
+     */
+    move(): void {
         control.inBackground(() => {
             while (!this.isDeleted()) {
                 let level = this.levels[game.score()];
@@ -47,11 +59,18 @@ class Baddy {
         })
     }
 
-    isDeleted() {
+    /**
+     * Checks if all the baddie's sprites have been deleted.
+     * @returns True if all sprites are deleted, false otherwise.
+     */
+    isDeleted(): boolean {
         return this.sprites[0].isDeleted();
     }
 
-    remove() {
+    /**
+     * Removes all the baddie's sprites from the screen.
+     */
+    remove(): void {
         this.sprites.forEach((e) => {
             e.delete();
         })

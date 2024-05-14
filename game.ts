@@ -38,6 +38,7 @@ class Game {
      * Starts the main game loop that manages baddie spawning, level transitions, and win/lose conditions.
      */
     init(): void {
+        
         control.inBackground(() => {
             while (!game.isGameOver()) {
                 // Either we are at the end of the level, so we set everything up for the

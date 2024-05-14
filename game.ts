@@ -40,7 +40,7 @@ class Game {
      */
     init(): void {
         control.inBackground(() => {
-            while (true) {
+            while (!game.isGameOver()) {
                 // Either we are at the end of the level, so we set everything up for the
                 // next one, i.e. there should be no more baddies created.
                 // Or we just keep on creating baddies in this wave until we reach waveLength.
@@ -88,13 +88,15 @@ class Game {
                     basic.pause(this.levels[game.score()].newBaddySpeed);
                 }
             }
-            // If we get here then our here has won the game!
-            basic.showString("WINNER!!!!!", 50);
+            // If we get here then our hero has won the game!
+            if (game.score() == this.levels.length - 1){
+                basic.showString("WINNER!!!!!", 50);
+            }
         });
         // Keep a loop going to watch for any baddies that come into
         // contact with our here.
         control.inBackground(() => {
-            while (true) {
+            while (!game.isGameOver()) {
                 this.baddies.forEach((baddy) => {
                     baddy.sprites.forEach((e) => {
                         if (e.isTouching(this.hero)) {

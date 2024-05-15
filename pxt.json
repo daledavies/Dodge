@@ -21,6 +21,5 @@
         "microbit"
     ],
     "preferredEditor": "tsprj",
-    "languageRestriction": "javascript-only",
-    "disableTargetTemplateFiles": true
+    "languageRestriction": "javascript-only"
 }

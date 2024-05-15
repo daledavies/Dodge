@@ -5,7 +5,7 @@ class Game {
     readonly levels: Level[];
     waveLength: number = 0;
     baddies: Baddy[] = [];
-    hero: game.LedSprite = game.createSprite(randint(1, 3), 4);
+    hero: game.LedSprite = null;
 
     /**
      * Creates a new Game instance and initialises the level data.
@@ -16,7 +16,6 @@ class Game {
             new Level(1, 3, 8, 6, 13, 17),
             new Level(2, 3, 9, 4, 19, 20),
         ];
-        this.setup();
         this.controls();
     }
 
@@ -24,20 +23,25 @@ class Game {
      * Remove an existing Baddies and set starting game state.
      */
     setup(): void {
+        if (this.hero) {
+            this.hero.delete();
+        }
         this.baddies.forEach((e) => {
             e.remove();
         })
         this.baddies = [];
         this.waveLength = 0;
-        this.hero.setDirection(90)
         game.setScore(0);
         game.setLife(3);
+        this.hero = game.createSprite(randint(1, 3), 4);
+        this.hero.setDirection(90)
     }
 
     /**
      * Starts the main game loop that manages baddie spawning, level transitions, and win/lose conditions.
      */
     init(): void {
+        this.setup();
         control.inBackground(() => {
             while (!game.isGameOver()) {
                 // Either we are at the end of the level, so we set everything up for the

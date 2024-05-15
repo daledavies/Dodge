@@ -1,7 +1,7 @@
 {
     "name": "Dodge",
     "version": "0.0.1",
-    "description": "Try to make your here avoid all the baddies, nobody knows why.",
+    "description": "Our hero needs to get to get home, but first they need to avoid all the baddies!",
     "dependencies": {
         "core": "*"
     },

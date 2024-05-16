@@ -12,9 +12,10 @@ class Game {
      */
     constructor() {
         this.levels = [
-            new Level(2, 2, 11, 7, 14, 15),
+            new Level(2, 2, 10, 7, 14, 15),
             new Level(1, 3, 8, 6, 13, 17),
-            new Level(2, 3, 9, 4, 19, 20),
+            new Level(2, 3, 6, 3, 13, 20),
+            new Level(2, 3, 6, 2, 11, 25),
         ];
         this.controls();
     }
